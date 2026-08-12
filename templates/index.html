@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candidature spontanée — Envoi automatique</title>
+<style>
+  :root {
+    --navy: #1f3864;
+    --teal: #0f6b72;
+    --accent: #c55a11;
+    --bg: #f6f7f9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    margin: 0;
+    padding: 40px 16px;
+    color: #222;
+  }
+  .card {
+    max-width: 540px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 32px;
+  }
+  h1 {
+    font-size: 22px;
+    color: var(--navy);
+    margin: 0 0 4px;
+  }
+  p.sub {
+    color: #666;
+    margin: 0 0 24px;
+    font-size: 14px;
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--navy);
+    margin-bottom: 6px;
+    margin-top: 18px;
+  }
+  input[type=text], input[type=email] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d8dce1;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+  input:focus { outline: 2px solid var(--teal); border-color: var(--teal); }
+
+  .toggle-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .toggle-group input[type=radio] {
+    display: none;
+  }
+  .toggle-group label.opt {
+    flex: 1;
+    text-align: center;
+    padding: 10px 8px;
+    border: 1px solid #d8dce1;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    margin: 0;
+    transition: all 0.15s ease;
+  }
+  .toggle-group input[type=radio]:checked + label.opt {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+  }
+  .toggle-group label.opt .badge {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.75;
+    margin-top: 2px;
+  }
+
+  button {
+    margin-top: 26px;
+    width: 100%;
+    padding: 13px;
+    background: var(--teal);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:hover { background: #0b5459; }
+  .flash {
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .flash.success { background: #e6f4ea; color: #1e7b34; }
+  .flash.error { background: #fdecea; color: #b3261e; }
+  .status {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; }
+  .ok { background: #2e7d32; }
+  .ko { background: #c62828; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Candidature spontanée</h1>
+    <p class="sub">Renseigne la société et l'email du recruteur — la lettre de motivation est générée automatiquement et le mail part avec ton CV en pièce jointe.</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="/send">
+      <label for="company">Nom de la société</label>
+      <input type="text" id="company" name="company" placeholder="ex : Vermeg" required>
+
+      <label for="email">Email du destinataire</label>
+      <input type="email" id="email" name="email" placeholder="ex : recrutement@societe.com" required>
+
+      <label>Langue de la lettre de motivation</label>
+      <div class="toggle-group">
+        <input type="radio" id="letter_fr" name="letter_lang" value="fr" checked>
+        <label class="opt" for="letter_fr">Français</label>
+
+        <input type="radio" id="letter_en" name="letter_lang" value="en">
+        <label class="opt" for="letter_en">English</label>
+      </div>
+
+      <label>Langue du CV joint</label>
+      <div class="toggle-group">
+        <input type="radio" id="cv_fr" name="cv_lang" value="fr" checked>
+        <label class="opt" for="cv_fr">Français
+          <span class="badge">{{ 'trouvé' if cv_fr_exists else 'manquant' }}</span>
+        </label>
+
+        <input type="radio" id="cv_en" name="cv_lang" value="en">
+        <label class="opt" for="cv_en">English
+          <span class="badge">{{ 'trouvé' if cv_en_exists else 'manquant' }}</span>
+        </label>
+      </div>
+
+      <button type="submit">Envoyer la candidature</button>
+    </form>
+
+    <div class="status">
+      <span><span class="dot {{ 'ok' if configured else 'ko' }}"></span>SMTP {{ 'configuré' if configured else 'non configuré (.env)' }}</span>
+      <span><span class="dot {{ 'ok' if cv_fr_exists else 'ko' }}"></span>CV FR {{ 'trouvé' if cv_fr_exists else 'manquant' }}</span>
+      <span><span class="dot {{ 'ok' if cv_en_exists else 'ko' }}"></span>CV EN {{ 'trouvé' if cv_en_exists else 'manquant' }}</span>
+    </div>
+  </div>
+</body>
+</html>
