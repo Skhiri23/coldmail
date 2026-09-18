@@ -56,19 +56,19 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 SUBJECT_FR = "Candidature spontanée – {poste}"
 SUBJECT_EN = "Spontaneous application – {poste}"
 
-TEMPLATE_FR = """Madame, Monsieur,
+TEMPLATE_FR = """Bonjour,
 
-Je suis récemment diplômé d'un Master en Data Science et je suis actuellement à la recherche d'une opportunité en tant que {poste}.
+Je me permets de vous contacter suite à l'obtention récente de mon Master en Data Science, et je suis actuellement à la recherche d'une première opportunité en tant que {poste}.
 
-Mon profil est à la croisée de la Data Science, du Machine Learning et du développement logiciel. Je travaille principalement avec Python, Pandas, NumPy, Scikit-learn, XGBoost, TensorFlow/Keras, SQL et PostgreSQL, et je sais également transformer un modèle en une solution exploitable grâce à Flask/FastAPI, React, Docker et AWS.
+Mon profil se situe à la croisée de la Data Science, du Machine Learning et du développement logiciel : Python, Pandas, NumPy, Scikit-learn, XGBoost, TensorFlow/Keras, SQL, PostgreSQL, avec la capacité de transformer un modèle en solution exploitable grâce à Flask/FastAPI, React, Docker et AWS.
 
-Mon expérience la plus significative est mon projet de fin d'études réalisé chez Nouvelair Tunisie, où j'ai développé FuelTrack, une plateforme intelligente de suivi et de prédiction de la consommation de carburant et des émissions CO2. J'y ai travaillé sur toute la chaîne : préparation des données, feature engineering, modèles XGBoost/LSTM, évaluation, SHAP, API Flask, PostgreSQL, React et dashboards Power BI. J'ai également intégré un module RAG avec LLaMA pour permettre une interaction avec les données de vols en langage naturel.
+Mon expérience la plus significative est mon projet de fin d'études chez Nouvelair Tunisie, où j'ai développé FuelTrack, une plateforme intelligente de suivi et de prédiction de la consommation de carburant et des émissions CO2. J'y ai travaillé sur toute la chaîne : préparation des données, feature engineering, modèles XGBoost/LSTM, évaluation, SHAP, API Flask, PostgreSQL, React et dashboards Power BI, avec un module RAG intégrant LLaMA pour interroger les données de vols en langage naturel.
 
-Cette expérience m'a surtout appris à ne pas m'arrêter au modèle : partir d'un problème métier, travailler la donnée, construire le modèle puis l'intégrer dans une véritable application. C'est précisément ce type de projets que je souhaite continuer à développer chez {company}.
+Cette expérience m'a surtout appris à ne pas m'arrêter au modèle : partir d'un problème métier, travailler la donnée, construire le modèle, puis l'intégrer dans une véritable application. C'est précisément ce type de projets que j'aimerais continuer à développer chez {company}.
 
-Je serais donc ravi d'échanger avec vous au sujet de vos besoins actuels ou futurs en Data, Machine Learning et Intelligence Artificielle, même si aucun poste correspondant à mon profil n'est actuellement publié.
+Je serais ravi d'échanger avec vous sur vos besoins actuels ou futurs en Data, Machine Learning et Intelligence Artificielle, même si aucun poste correspondant à mon profil n'est publié pour le moment. Je me tiens à votre disposition pour vous transmettre mon CV.
 
-Merci pour votre attention, et au plaisir d'échanger avec vous.
+Merci pour votre temps, au plaisir d'échanger avec vous !
 
 {sender_name}
 {sender_phone}
@@ -77,19 +77,19 @@ LinkedIn : {linkedin}
 Portfolio : {portfolio}
 """
 
-TEMPLATE_EN = """Dear Hiring Manager,
+TEMPLATE_EN = """Hello,
 
-I recently graduated with a Master's degree in Data Science and I am currently looking for an opportunity as a {poste}.
+I'm reaching out as I recently completed my Master's degree in Data Science, and I'm currently looking for my first opportunity as a {poste}.
 
-My profile sits at the intersection of Data Science, Machine Learning and software development. I mainly work with Python, Pandas, NumPy, Scikit-learn, XGBoost, TensorFlow/Keras, SQL and PostgreSQL, and I'm also able to turn a model into a usable product using Flask/FastAPI, React, Docker and AWS.
+My profile sits at the intersection of Data Science, Machine Learning and software development: Python, Pandas, NumPy, Scikit-learn, XGBoost, TensorFlow/Keras, SQL, PostgreSQL, along with the ability to turn a model into a usable product using Flask/FastAPI, React, Docker and AWS.
 
-My most significant experience is my capstone project at Nouvelair Tunisie, where I built FuelTrack, an intelligent platform to track and predict aircraft fuel consumption and CO2 emissions. I worked across the full chain: data preparation, feature engineering, XGBoost/LSTM models, evaluation, SHAP, a Flask API, PostgreSQL, React and Power BI dashboards. I also integrated a RAG module with LLaMA to enable natural-language interaction with flight data.
+My most significant experience is my capstone project at Nouvelair Tunisie, where I built FuelTrack, an intelligent platform to track and predict aircraft fuel consumption and CO2 emissions. I worked across the full chain: data preparation, feature engineering, XGBoost/LSTM models, evaluation, SHAP, a Flask API, PostgreSQL, React and Power BI dashboards, plus a RAG module with LLaMA for natural-language queries over flight data.
 
-This experience mainly taught me not to stop at the model: start from a business problem, work the data, build the model, then integrate it into a real application. This is exactly the kind of project I want to keep working on at {company}.
+This experience mainly taught me not to stop at the model: start from a business problem, work the data, build the model, then integrate it into a real application. This is exactly the kind of project I'd like to keep working on at {company}.
 
-I would therefore be delighted to discuss your current or future needs in Data, Machine Learning and Artificial Intelligence, even if no position matching my profile is currently open.
+I'd be glad to discuss your current or future needs in Data, Machine Learning and Artificial Intelligence, even if no position matching my profile is currently open. I'm happy to send over my resume.
 
-Thank you for your time, and I look forward to hearing from you.
+Thank you for your time, looking forward to hearing from you!
 
 {sender_name}
 {sender_phone}
